@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="clients">
+  <h2>{{ client.name }}</h2>
+  <img src="{{ client.image.url }}" style="width:100px;border-radius:50%;">
+  <p>{{ client.description }}</p>
+  <small>{{ client.designation }}</small>
+</section>
+
+{% endblock %}

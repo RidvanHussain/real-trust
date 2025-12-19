@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">
+  Real <span>Trust</span>
+  </div>
+
+  <nav>
+  <a href="#home">Home</a>
+  <a href="#services">Services</a>
+  <a href="#projects">Projects</a>
+  <a href="#testimonials">Testimonials</a>
+  <a href="#contact" class="btn-nav" id="ch">Contact</a>
+</nav>
+
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home"
+  style="
+    background:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url('{{ hero.background_image.url }}') center/cover no-repeat;
+  ">
+  
+  <div class="hero-text">
+    <h1 >{{ hero.title|linebreaksbr }}</h1>
+  </div>
+
+  <div class="hero-form" id="contact">
+    <h3>Get a Free Consultation</h3>
+    <form method="POST">
+      {% csrf_token %}
+      <input name="name" placeholder="Full Name">
+      <input name="email" placeholder="Enter Email Address">
+      <input name="mobile" placeholder="Mobile Number">
+      <input name="city" placeholder="Area, City">
+      <button name="contact" id="ch">Get Quick Quote</button>
+    </form>
+  </div>
+</section>
+
+<!-- AI CHATBOT -->
+<section class="ai-chat">
+  <h2>Ask Real Trust AI</h2>
+  <div class="chat-box" id="chatBox">
+    <div class="bot-msg">Hi 👋 How can I help you today?</div>
+  </div>
+
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Ask about our services, projects, pricing...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why" id="services">
+  <h2>Why Choose Us?</h2>
+  <div class="why-grid">
+    <div>
+      <h4>Potential ROI</h4>
+      <p>We focus on strategies that maximize the return on your investment by identifying high-impact opportunities, optimizing project value, and ensuring every decision contributes to long-term growth and profitability.</p>
+    </div>
+    <div>
+      <h4>Design</h4>
+      <p>Our team delivers modern, functional, and aesthetically refined designs that balance creativity with practicality, ensuring spaces are both visually appealing and purpose-driven.</p>
+    </div>
+    <div>
+      <h4>Marketing</h4>
+      <p>We implement data-driven and targeted marketing strategies that enhance visibility, attract the right audience, and accelerate sales while maintaining brand credibility and trust.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT US -->
+<section class="about">
+  <h2>About Us</h2>
+  <p>
+    We help clients achieve exceptional results through a combination of expert consultation, innovative design, and strategic marketing. Our approach is focused on understanding client goals, delivering tailored solutions, and creating value-driven outcomes that stand the test of time. By blending industry expertise with clear communication and precision execution, we build lasting relationships and successful projects.
+  </p>
+  <button class="outline-btn">LEARN MORE</button>
+</section>
+
+<!-- OUR PROJECTS -->
+<section class="projects" id="projects">
+  <h2>Our Projects</h2>
+  <p>Projects that bring top value for our clients</p>
+
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+
+    {% for p in projects %}
+    <div class="swiper-slide">
+      <div class="project-card">
+        <img src="{{ p.image.url }}">
+        <h4>{{ p.name }}</h4>
+        <p class="project-desc">
+          {{ p.description|truncatechars:120 }}
+        </p>
+
+        <a class="more-link" href="{% url 'project_detail' p.id %}">
+          ..more
+        </a>
+
+        <a href="{% url 'project_detail' p.id %}" class="project-btn">
+          READ MORE
+        </a>
+
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+</section>
+
+<!-- HAPPY CLIENTS -->
+<section class="clients" id="testimonials">
+  <h2>Happy Clients</h2>
+
+  <div class="swiper testimonialSwiper">
+    <div class="swiper-wrapper">
+
+      {% for c in clients %}
+      <div class="swiper-slide">
+        <div class="testimonial-card">
+
+          <img src="{{ c.image.url }}" class="testimonial-img">
+
+          <p class="testimonial-desc">
+            {{ c.description|truncatechars:120 }}
+          </p>
+
+          <a href="{% url 'client_detail' c.id %}" class="more-link">
+            ..more
+          </a>
+
+          <h4>{{ c.name }}</h4>
+          <small>{{ c.designation }}</small>
+
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-content">
+    <h2>Learn more about our listing process</h2>
+    <p>Discover how we deliver value-driven solutions with transparency and precision.</p>
+    <a href="#services" class="cta-btn">Learn More</a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-brand">
+      <h3>REAL <span>TRUST</span></h3>
+      <p>Delivering reliable and professional real estate and interior solutions.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="footer-newsletter">
+      <h4>Newsletter</h4>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Enter Email Address" required>
+        <button name="newsletter">Subscribe</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Real Trust. All rights reserved.
+  </div>
+</footer>
+
+
+<script>
+function sendMessage() {
+  let input = document.getElementById("userInput");
+  let chatBox = document.getElementById("chatBox");
+
+  let message = input.value;
+  if (!message) return;
+
+  chatBox.innerHTML += `<div class="user-msg">${message}</div>`;
+  input.value = "";
+
+  fetch("/ai-chat/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: message })
+  })
+  .then(res => res.json())
+  .then(data => {
+    chatBox.innerHTML += `<div class="bot-msg">${data.reply}</div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  });
+}
+</script>
+
+
+{% endblock %}

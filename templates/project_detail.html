@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="projects">
+  <h2>{{ project.name }}</h2>
+  <img src="{{ project.image.url }}" style="width:400px;">
+  <p>{{ project.description }}</p>
+</section>
+
+{% endblock %}

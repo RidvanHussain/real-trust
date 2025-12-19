@@ -1,0 +1,5 @@
+Django==6.0
+gunicorn
+openai
+python-dotenv
+whitenoise

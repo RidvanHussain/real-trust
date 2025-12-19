@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Real Trust</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+</head>
+
+<body>
+
+{% block content %}{% endblock %}
+
+<!-- Swiper JS (ONLY ONCE) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- Swiper Init -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    /* PROJECTS CAROUSEL */
+    if (document.querySelector(".mySwiper")) {
+      new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+          1024: { slidesPerView: 3 },
+          768: { slidesPerView: 2 },
+          480: { slidesPerView: 1 }
+        }
+      });
+    }
+
+    /* TESTIMONIALS CAROUSEL */
+    if (document.querySelector(".testimonialSwiper")) {
+      new Swiper(".testimonialSwiper", {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+          delay: 3500,
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+          1024: { slidesPerView: 3 },
+          768: { slidesPerView: 2 },
+          480: { slidesPerView: 1 }
+        }
+      });
+    }
+
+  });
+</script>
+
+</body>
+</html>
